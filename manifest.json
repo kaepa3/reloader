@@ -1,10 +1,16 @@
 {
-	"name": "reloader",
-	"manifest_version": 3,
-	"version": "0.1",
-	"permissions": ["activeTab","scripting"],
-	"background": {
-		"service_worker": "alert.js"
-	},
-	"action": {}
+  "name": "reloader",
+  "manifest_version": 3,
+  "version": "0.1",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "reload.js"
+  },
+  "action": {
+    "default_icon": "popup16.png",
+    "default_popup": "popup.html"
+  }
 }
