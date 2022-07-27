@@ -7,7 +7,7 @@
     "scripting"
   ],
   "background": {
-    "service_worker": "reload.js"
+    "service_worker": "service.js"
   },
   "action": {
     "default_icon": "popup16.png",
