@@ -1,20 +1,39 @@
+var obj = document.getElementById("secValue");
+obj.addEventListener("change", restart, false);
 
-console.log("hoge")
 async function getCurrentTab() {
   let queryOptions = { active: true, currentWindow: true };
   let [tab] = await chrome.tabs.query(queryOptions);
   return tab;
 }
-getCurrentTab().then((tab) => {
-  console.log("kita" + tab)
-  reload(tab.id)
-  return true
-});
+var intervalId
+function startInterval(time) {
+  getCurrentTab().then((tab) => {
+    intervalId = reload(tab.id, time)
+    return true
+  });
+}
 
-function reload(id) {
+function reload(id, time) {
+  var inputObj = document.getElementById("secValue");
+  var time = inputObj.value * 1000
+  console.log(time)
   const func = () => {
-    chrome.runtime.sendMessage({ message: "reload", id: id});
+    chrome.runtime.sendMessage({ message: "reload", id: id });
     return true
   }
-  setInterval(func, 2000);
+  return setInterval(func, time);
 }
+
+
+function restart() {
+  clearInterval(intervalId)
+  startInterval()
+  getCurrentTab().then((tab) => {
+    intervalId = reload(tab.id)
+    return true
+  });
+}
+var inputObj = document.getElementById("secValue");
+inputObj.value = 2 
+restart()
